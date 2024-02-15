@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient(name="currency-exchange", url="localhost:8000")          // = spring.application.name in app.props
+//@FeignClient(name="currency-exchange", url="localhost:8000")          // = spring.application.name in app.props
+@FeignClient(name="currency-exchange")          // this way the Load Balancer (with Feign) is balancing the among the services
 public interface CurrencyExchangeProxy {
 
     @GetMapping("/currency-exchange/from/{from}/to/{to}")       // this method signature+mapping is from currency-exchange-service's controllers (return type changed...)
