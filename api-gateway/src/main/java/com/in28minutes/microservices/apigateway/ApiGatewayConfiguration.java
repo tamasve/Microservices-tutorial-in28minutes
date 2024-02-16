@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.function.Function;
 
+// To configure the paths of the common API
+
 @Configuration
 public class ApiGatewayConfiguration {
 
@@ -23,8 +25,8 @@ public class ApiGatewayConfiguration {
         return builder.routes()
 //                .route(routeFunction)
                 .route(
-                        p -> p.path("/get")     // the route to redirect
-                                .filters( f -> f.addRequestHeader("MyHeader", "MyURI")      // my parameter into the "headers"
+                        p -> p.path("/get")     // the route to redirect - "match" = "predicate"
+                                .filters( f -> f.addRequestHeader("MyHeader", "MyURI")      // my parameter into the "headers" - filter = what needs to be done once a request is matched
                                         .addRequestParameter("MyParam", "MyValue"))         // my parameter into the "args"
                                 .uri("http://httpbin.org:80")     // redirect to this URI if the request is "/get"
                 )
