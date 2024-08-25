@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ *  This class uses the prop values from Configuration
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
