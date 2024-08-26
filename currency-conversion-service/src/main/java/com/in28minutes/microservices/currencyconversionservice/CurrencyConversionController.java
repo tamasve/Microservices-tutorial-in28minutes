@@ -27,17 +27,18 @@ public class CurrencyConversionController {
             @PathVariable String to,
             @PathVariable BigDecimal quantity) {
 
+        // parameters for the HTTP request
         HashMap<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
 
-        // this performs an HTTP request to another microservice
+        // this performs an HTTP request to another microservice: the Currency Exchange
         ResponseEntity<CurrencyConversion> responseEntity = new RestTemplate().getForEntity(
                 "http://localhost:8000/currency-exchange/from/{from}/to/{to}",
                 CurrencyConversion.class,
                 uriVariables);
 
-        CurrencyConversion currencyConversion = responseEntity.getBody();
+        CurrencyConversion currencyConversion = responseEntity.getBody();       // the data content
 
         if (currencyConversion == null) throw new NoSuchElementException("Requested currency exchange does not exist.");
 
@@ -50,7 +51,8 @@ public class CurrencyConversionController {
     }
 
 
-    // the Feign version - using a proxy instead of a special method call with parameters and data check:
+    // the Feign version - using a proxy class instead of a special method call with parameters and data check:
+    // ( + @EnableFeignClients after @SPA on ...App class )
 
     @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversion calculateCurrencyConversionFeign(
